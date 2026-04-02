@@ -2,7 +2,8 @@ const mysql = require("mysql");
 const express = require("express");
 const app = express();
 const port = 3000;
-app.use(express.static("public")); 
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 // Anslutningsinställningar
@@ -28,7 +29,35 @@ app.get("/", (req, res) => {
 });
 
 app.get("/add", (req, res) => {
-    res.render("add");
+    res.render("add", { errors: []});
+});
+
+app.post("/", async (req, res) => {
+    const coursecode = req.body.coursecode;
+    const coursename = req.body.coursename;
+    const syllabus = req.body.syllabus;
+    const progression = req.body.progression;
+    let errors = []
+
+    if (coursecode === "") {
+        errors.push("Du måste fylla i kurskod!");
+    }
+
+    if (coursename === "") {
+        errors.push("Du måste fylla i kursnamn!");
+    }
+
+    if (syllabus === "") {
+        errors.push("Du måste fylla i kursplan!");
+    }
+
+    if (progression === "") {
+        errors.push("Du måste fylla i progression!");
+    }
+
+    if (errors.length > 0) {
+        return res.render("add", { errors });
+    }
 });
 
 app.get("/about", (req, res) => {
