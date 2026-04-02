@@ -16,3 +16,21 @@ connection.connect((err => {
 
     console.log("Connected to MySQL!");
 }));
+
+// SQL-fråga
+connection.query("DROP TABLE IF EXISTS courses;", (err, results) => {
+    if(err) throw err;
+
+    console.log("Tabellen courses raderad!");
+});
+
+connection.query(`CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    coursecode VARCHAR(20) NOT NULL,
+    coursename VARCHAR(100) NOT NULL,
+    syllabus TEXT NOT NULL,
+    progression VARCHAR(2) NOT NULL)`, (err, results) => {
+    if (err) throw err;
+
+    console.log("Database created: " + results);
+});
