@@ -25,11 +25,21 @@ connection.connect((err => {
 
 // Routing
 app.get("/", (req, res) => {
-    res.render("index");
+
+    //SQL-query
+    connection.query(
+        "SELECT * FROM courses", (error, results) => {
+            if (error) {
+                console.log(error);
+            }
+
+            res.render("index", { courses: results });
+        }
+    );
 });
 
 app.get("/add", (req, res) => {
-    res.render("add", { errors: []});
+    res.render("add", { errors: [] });
 });
 
 app.post("/", async (req, res) => {
@@ -57,6 +67,17 @@ app.post("/", async (req, res) => {
 
     if (errors.length > 0) {
         return res.render("add", { errors });
+    }
+
+    try {
+        //SQL-query
+        connection.query(
+            "INSERT INTO courses(coursecode, coursename, syllabus, progression) VALUES (?, ?, ?, ?)", [coursecode, coursename, syllabus, progression]
+        );
+        res.redirect("/");
+
+    } catch (error) {
+        console.log(error);
     }
 });
 

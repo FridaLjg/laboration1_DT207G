@@ -20,7 +20,20 @@
     <div class="container">
     <h1>Startsida</h1>
 
-    <h2>Test</h2>
+    <h2>Fridas CV</h2>
+
+        <div class="courselist">
+            <%
+            courses.forEach(course => {
+                %>
+                <article>
+                    <p><%= course.coursecode %> - <%= course.coursename %> - <%= course.syllabus %> - <%= course.progression %></p>
+                </article>
+                <%
+            });
+            %>
+        </div>
+
     </div>
 </body>
 
