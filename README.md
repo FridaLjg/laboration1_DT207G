@@ -7,3 +7,4 @@ Syftet med applikationen är att jag ska kunna digitalisera mitt CV från min st
 Av: Frida Ljungberg, 2026
 
 ### Länk till redovisning
+https://youtu.be/K1iNkffy-W4 
