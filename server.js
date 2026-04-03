@@ -81,6 +81,22 @@ app.post("/", async (req, res) => {
     }
 });
 
+//Radera kurs
+app.post("/courses/delete/:id", (req, res) => {
+    const id = req.params.id;
+
+    connection.query(
+        "DELETE FROM courses WHERE id = ?",
+        [id],
+        (err, result) => {
+            if (err) {
+                console.error("Kunde inte radera kursen:", err);
+            }
+            res.redirect("/");
+        }
+    );
+});
+
 app.get("/about", (req, res) => {
     res.render("about");
 });

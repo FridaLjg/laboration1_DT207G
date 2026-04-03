@@ -18,20 +18,47 @@
     </nav>
 
     <div class="container">
-    <h1>Startsida</h1>
+        <h1>Startsida</h1>
 
-    <h2>Fridas CV</h2>
+        <h2>Fridas CV</h2>
 
         <div class="courselist">
-            <%
-            courses.forEach(course => {
-                %>
-                <article>
-                    <p><%= course.coursecode %> - <%= course.coursename %> - <%= course.syllabus %> - <%= course.progression %></p>
-                </article>
-                <%
-            });
-            %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kurskod</th>
+                        <th>Kursnamn</th>
+                        <th>Kursplan</th>
+                        <th>Progression</th>
+                        <th>Radera kurs</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% courses.forEach(course=> {
+                        %>
+                        <tr>
+                            <td>
+                                <%= course.coursecode %>
+                            </td>
+                            <td>
+                                <%= course.coursename %>
+                            </td>
+                            <td>
+                                <%= course.syllabus %>
+                            </td>
+                            <td>
+                                <%= course.progression %>
+                            </td>
+                            <td>
+                                <form action="/courses/delete/<%= course.id %>" method="POST">
+                                    <button type="submit">Radera</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
         </div>
 
     </div>
